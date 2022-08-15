@@ -1,0 +1,12 @@
+{
+  "RS232": {
+    "title": "RS232",
+    "subheader": "RS232 configuration",
+    "settings": {
+      "baudRate": {
+        "name": "Baud Rate",
+        "value": 19200
+      }
+    }
+  }
+}
