@@ -1,21 +1,18 @@
-import { Box, Button, Card, CardContent, CardHeader, Divider, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Checkbox,
+  Divider,
+  TextField,
+  FormControlLabel,
+} from "@mui/material";
 import { Form } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const SettingRS232 = (props) => {
-  const [values, setValue] = useState(props.values);
-
-  function handleChange(event) {
-    let target = event.target;
-    console.log(target);
-    setValue({ baudRate: target.value });
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    console.log(event.target);
-  }
-
   return (
     <form {...props}>
       <Card>
@@ -27,9 +24,20 @@ export const SettingRS232 = (props) => {
             label="Baud Rate"
             margin="normal"
             name="baudRate"
-            onChange={handleChange}
+            onChange={props.handleChange}
             type="number"
-            value={values.baudRate}
+            value={props.values.baudRate}
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                name="parity"
+                color="primary"
+                checked={props.values.parity}
+                onClick={props.handleChange}
+              />
+            }
+            label="Parity"
           />
           <Divider />
           <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
