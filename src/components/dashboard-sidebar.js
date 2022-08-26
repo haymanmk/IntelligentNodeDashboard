@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
@@ -25,6 +25,10 @@ import { XCircle as XCircleIcon } from "../icons/x-circle";
 import { Logo } from "./logo";
 import { NavItem } from "./nav-item";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import { stateContext } from "src/store/state-context";
+import { useSelector, useDispatch } from "react-redux";
+import { storeAction } from "src/store/state-slice";
+import api_config from "src/pages/api_config";
 
 const items = [
   {
@@ -47,11 +51,11 @@ const items = [
     icon: <UserIcon fontSize="small" />,
     title: "Account",
   },
-  {
-    href: "/settings",
-    icon: <CogIcon fontSize="small" />,
-    title: "Settings",
-  },
+  // {
+  //   href: "/settings",
+  //   icon: <CogIcon fontSize="small" />,
+  //   title: "Settings",
+  // },
   {
     href: "/login",
     icon: <LockIcon fontSize="small" />,
@@ -82,8 +86,50 @@ export const DashboardSidebar = (props) => {
     userName: "Alley",
   });
 
+  // const ctx = useContext(stateContext);
+  // const [_items, setItems] = useState(items);
+  const _items = useSelector((state) => {
+    return [
+      ...items,
+      ...Object.keys(state.state.config).map((key) => ({
+        href: `/new_settings/${key}`,
+        icon: <CogIcon fontSize="small" />,
+        title: key,
+      })),
+    ];
+  });
+  const storeDomain = useSelector((state) => state.state.domain);
+  const dispatch = useDispatch();
+
   useEffect(
     () => {
+      dispatch(storeAction.setDomainName(location.href));
+
+      fetch(api_config.config, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Context-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((response) => {
+          // console.log(response);
+          dispatch(storeAction.setConfig(response));
+        });
+
+      // console.log(ctx.domainName, ctx.config);
+      // setItems([
+      //   ...items,
+      //   ...Object.keys(ctx.config).map((key) => ({
+      //     href: `/new_settings/${key}`,
+      //     icon: <CogIcon fontSize="small" />,
+      //     title: key,
+      //   })),
+      // ]);
+      // console.log(_items);
       if (!router.isReady) {
         return;
       }
@@ -93,7 +139,7 @@ export const DashboardSidebar = (props) => {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [router.asPath]
+    []
   );
 
   const content = (
@@ -117,19 +163,7 @@ export const DashboardSidebar = (props) => {
                 </NextLink>
               </Box>
             </Grid>
-            <Grid item xs={2}>
-              {/* <IconButton
-                // onClick={}
-                sx={{
-                  "&:hover": {
-                    color: "secondary.main",
-                    backgroundColor: "rgba(255,255,255, 0.08)",
-                  },
-                }}
-              >
-                <ChevronLeftIcon color="neutral.400" />
-              </IconButton> */}
-            </Grid>
+            <Grid item xs={2}></Grid>
           </Grid>
           <Box sx={{ px: 2 }}>
             <Box
@@ -169,7 +203,7 @@ export const DashboardSidebar = (props) => {
           }}
         />
         <Box sx={{ flexGrow: 1 }}>
-          {items.map((item) => (
+          {_items.map((item) => (
             <NavItem key={item.title} icon={item.icon} href={item.href} title={item.title} />
           ))}
         </Box>

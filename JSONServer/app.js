@@ -36,13 +36,12 @@ app
         configObject = JSON.parse(data);
 
         let confObj = JSON.parse(JSON.stringify(req.body));
-        configObject.RS232.settings.baudRate.value = confObj.baudRate;
-        configObject.RS232.settings.parity.value = confObj.parity;
-        fs.writeFile("./config.json", JSON.stringify(configObject), (err) => {
+        // configObject.RS232.settings.baudRate.value = confObj.baudRate;
+        // configObject.RS232.settings.parity.value = confObj.parity;
+        fs.writeFile("./config.json", JSON.stringify(confObj), (err) => {
           if (err) {
             console.log(err);
           } else {
-            console.log(confObj);
             res.sendStatus(201);
           }
         });

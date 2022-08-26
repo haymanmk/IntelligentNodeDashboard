@@ -8,13 +8,13 @@ export const Logo = styled((props) => {
 
   return (
     <svg
-      class="gh__logo__svg"
+      className="gh__logo__svg"
       viewBox="0 0 786 113"
       xmlns="http://www.w3.org/2000/svg"
-      fill-rule="evenodd"
-      clip-rule="evenodd"
-      stroke-linejoin="round"
-      stroke-miterlimit="1.414"
+      fillRule="evenodd"
+      clipRule="evenodd"
+      strokeLinejoin="round"
+      strokeMiterlimit="1.414"
       {...other}
     >
       <title></title>

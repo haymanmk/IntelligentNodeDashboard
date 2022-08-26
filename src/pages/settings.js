@@ -112,7 +112,7 @@ export async function getStaticProps() {
       subheader: JSONData.RS232.subheader,
       values: {
         baudRate: JSONData.RS232.settings.baudRate.value,
-        parity: JSONData.RS232.settings.useParity.value,
+        parity: JSONData.RS232.settings.parity.value,
       },
     },
     // revalidate: 100,

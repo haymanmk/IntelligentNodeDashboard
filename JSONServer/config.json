@@ -1,1 +1,36 @@
-{"RS232":{"title":"RS232","subheader":"RS232 configuration","settings":{"baudRate":{"name":"Baud Rate","value":19201},"parity":{"name":"Parity","value":false}}}}
+{
+  "System": {
+    "title": "System",
+    "subheader": "System configuration",
+    "settings": {
+      "hostName": {
+        "label": "Host name",
+        "description": "Host name of host device.",
+        "value": "MyAlley"
+      },
+      "logging": { "label": "Logging", "description": "Logging status from slave.", "value": false }
+    }
+  },
+  "RS232": {
+    "title": "RS232",
+    "subheader": "RS232 configuration",
+    "settings": {
+      "port": { "label": "Port", "description": "Path to RS232 port.", "value": "/dev/ttyUSB0" },
+      "baudRate": { "label": "Baud Rate", "value": 19200 },
+      "parity": { "label": "Parity", "value": false }
+    }
+  },
+  "Database": {
+    "title": "Database",
+    "subheader": "Database configuration",
+    "settings": {
+      "url": {
+        "label": "URL",
+        "description": "Connection address to database.",
+        "value": "/GARMIN.ad.com.tw"
+      },
+      "userName": { "label": "User Name", "value": "pieng" },
+      "password": { "label": "Password", "value": "22061" }
+    }
+  }
+}
